@@ -46,6 +46,10 @@ If you use external toolkits/models, place them under `third_party/` (examples b
 - `CellFM`
 - `LazySlide`
 - `HEST`
+Reference links:
+- HEST: https://github.com/mahmoodlab/hest/
+- CellFM: https://github.com/biomed-AI/CellFM
+- LazySlide: https://github.com/rendeirolab/LazySlide
 
 ### Checkpoints + Vocab
 - Some external weights are MindSpore `.ckpt`.
@@ -106,6 +110,10 @@ pip install geopandas pyogrio shapely
 - `CellFM`
 - `LazySlide`
 - `HEST`
+参考链接：
+- HEST: https://github.com/mahmoodlab/hest/
+- CellFM: https://github.com/biomed-AI/CellFM
+- LazySlide: https://github.com/rendeirolab/LazySlide
 
 ### 权重与词表
 - 外部权重通常是 MindSpore `.ckpt`，需转换成 `.pt`。
