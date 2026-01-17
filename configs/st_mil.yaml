@@ -1,0 +1,45 @@
+data:
+  h5ad_path: ""
+  wsi_path: ""
+  cell_seg_path: ""
+  cell_patch_h5: ""
+  cell_emb_h5: ""
+  genes: "HVG:1000"
+  gene_vocab_path: "assets/cellfm/gene_info.csv"
+  spot_radius_px: 0
+  batch_size: 32
+  num_workers: 4
+  frac_train: 0.8
+  seed: 42
+
+lazyslide:
+  model_name: "resnet50"
+  model_path: ""
+  device: "cuda"
+  batch_size: 64
+  num_workers: 4
+
+model:
+  foundation: "cellfm"
+  cellfm_checkpoint: ""
+  cellfm_dim: 1536
+  cellfm_layers: 2
+  cellfm_heads: 48
+  cellfm_use_retention: true
+  freeze_cellfm: true
+  use_mock_cellfm: false
+  scgpt_checkpoint: ""
+  scgpt_dim: 512
+  freeze_scgpt: true
+  use_mock: false
+  dropout: 0.1
+  aggregation: "mean"
+  dispersion: "gene"
+
+train:
+  epochs: 50
+  lr: 0.0001
+  output_dir: "checkpoints/st_mil"
+
+infer:
+  output_dir: "results/st_mil"
