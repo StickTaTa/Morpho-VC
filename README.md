@@ -1,7 +1,7 @@
 <div align="center">
 
 # Morpho-VC: Morphological Virtual Cell
-### 形态学虚拟细胞系统 (LazySlide + CellFM)
+### 形态学虚拟细胞系统（以 Morpho-VC 创新流程为核心）
 
 [English](#english) | [中文](#中文)
 
@@ -12,13 +12,13 @@
 <a name="english"></a>
 ## 🇬🇧 English
 
-**Morpho-VC** is a virtual cell system that predicts **spatial transcriptomic gene expression** from H&E whole-slide images. It combines **LazySlide** for cell-level morphology embeddings and **CellFM** as the gene foundation model, trained with a **ST-MIL (Multi-Instance Learning)** pipeline.
+**Morpho-VC** is a virtual cell system that predicts **spatial transcriptomic gene expression** from H&E whole-slide images. The project emphasizes a **cell-to-spot ST-MIL pipeline**, gene-aware supervision, and scalable training, with external components plugged in as needed.
 
-### Key Features
-- **LazySlide vision**: cell patch extraction + morphology embeddings.
-- **CellFM backbone**: gene embedding space for biologically plausible prediction.
-- **ST-MIL training**: cell-to-spot mapping with NB (Negative Binomial) loss.
-- **Notebook-first workflow**: the main guide is `notebooks/st_mil_hest_multi.ipynb`.
+### Key Features (Our Innovations)
+- **Cell-to-spot ST-MIL pipeline** with explicit spot aggregation and NB (Negative Binomial) loss.
+- **Gene-aware training strategy** with chunked supervision to scale to large gene sets.
+- **Multi-slice training + evaluation workflow** (train/val/test split across slides).
+- **Notebook-first reproducibility** with a single main workflow (`notebooks/st_mil_hest_multi.ipynb`).
 
 ### User Guide
 - [User Guide (Chinese)](docs/User_Guide_CN.md)
@@ -41,14 +41,14 @@ pip install datasets huggingface_hub
 pip install geopandas pyogrio shapely
 ```
 
-### Third-Party Repos (not tracked in git)
-Place these under `third_party/`:
+### External Components (not tracked in git)
+If you use external toolkits/models, place them under `third_party/` (examples below):
 - `CellFM`
 - `LazySlide`
 - `HEST`
 
 ### Checkpoints + Vocab
-- CellFM official weights are MindSpore `.ckpt`.
+- Some external weights are MindSpore `.ckpt`.
 - Convert to PyTorch `.pt` via:
 ```bash
 python scripts/convert_cellfm_ckpt.py --ckpt /path/to/CellFM_80M_weight.ckpt --out /path/to/CellFM_80M_weight.pt
@@ -72,14 +72,13 @@ PYTHONPATH=src python src/st_pipeline/infer/predict_cli.py --config configs/st_m
 <a name="中文"></a>
 ## 🇨🇳 中文
 
-**Morpho-VC** 是一个“看图预测基因表达”的虚拟细胞系统。核心流程是：
-**LazySlide 提取细胞形态特征 + CellFM 基因基础模型 + ST-MIL 训练（负二项损失）**。
+**Morpho-VC** 是一个“看图预测基因表达”的虚拟细胞系统。核心是 **Morpho-VC 自身的 ST-MIL 训练流程**，并支持按需接入外部组件。
 
-### 核心特点
-- **LazySlide 视觉端**：细胞 patch + 形态学嵌入。
-- **CellFM 基因端**：稳定的基因嵌入空间。
-- **ST-MIL 管线**：细胞→spot 映射 + 包级监督（NB 损失）。
-- **Notebook 作为主流程**：`notebooks/st_mil_hest_multi.ipynb`。
+### 核心特点（我们的创新点）
+- **细胞→spot 的 ST-MIL 管线**：显式聚合 + NB 损失。
+- **大规模基因监督**：分块训练策略，降低显存占用。
+- **多切片训练/验证/测试**：更接近真实数据评估。
+- **Notebook 主流程**：`notebooks/st_mil_hest_multi.ipynb`。
 
 ### 使用指南
 - [中文使用指南](docs/User_Guide_CN.md)
@@ -102,14 +101,14 @@ pip install datasets huggingface_hub
 pip install geopandas pyogrio shapely
 ```
 
-### 第三方仓库（不随 git 跟踪）
-请手动放到 `third_party/`：
+### 外部组件（不随 git 跟踪）
+如需外部组件，请手动放到 `third_party/`：
 - `CellFM`
 - `LazySlide`
 - `HEST`
 
 ### 权重与词表
-- CellFM 官方权重是 MindSpore `.ckpt`，需转换成 `.pt`。
+- 外部权重通常是 MindSpore `.ckpt`，需转换成 `.pt`。
 - 80M 权重必须使用 **`expand_gene_info.csv`**。
 
 ### 推荐流程

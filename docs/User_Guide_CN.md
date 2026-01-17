@@ -1,6 +1,6 @@
 # Morpho-VC 使用指南（以 `st_mil_hest_multi.ipynb` 为主）
 
-本指南聚焦当前**主流程**：**LazySlide + CellFM + ST-MIL**。
+本指南聚焦当前**主流程**：以 **Morpho-VC 的 ST-MIL 训练流程**为核心，外部组件按需接入。
 请以 `notebooks/st_mil_hest_multi.ipynb` 为主入口，`notebooks/st_mil_hest_validate.ipynb` 为评估入口。
 
 ---
@@ -9,8 +9,6 @@
 
 - [notebooks/st_mil_hest_multi.ipynb](../notebooks/st_mil_hest_multi.ipynb)（主流程训练+预测）
 - [notebooks/st_mil_hest_validate.ipynb](../notebooks/st_mil_hest_validate.ipynb)（仅评估）
-- [notebooks/st_mil_with_hest_raw.ipynb](../notebooks/st_mil_with_hest_raw.ipynb)（单切片检查）
-- [notebooks/st_mil_validation.ipynb](../notebooks/st_mil_validation.ipynb)（旧版验证）
 - [scripts/convert_cellfm_ckpt.py](../scripts/convert_cellfm_ckpt.py)（权重转换）
 - [configs/st_mil.yaml](../configs/st_mil.yaml)（CLI 配置）
 
@@ -40,19 +38,19 @@ pip install geopandas pyogrio shapely
 
 ---
 
-## 2. 第三方仓库准备（不随 git 跟踪）
+## 2. 外部组件准备（不随 git 跟踪）
 
-请将以下仓库放到 `third_party/` 目录：
+如需外部组件，请将以下仓库放到 `third_party/` 目录：
 - `third_party/CellFM`
 - `third_party/LazySlide`
 - `third_party/HEST`
 
-**LazySlide 安装**：
+**LazySlide（可选）安装**：
 ```bash
 pip install -e third_party/LazySlide
 ```
 
-**HEST 说明**：
+**HEST（可选）说明**：
 需要保证 `third_party/HEST/src/hest` 存在，Notebook 会自动 `sys.path` 引入。
 
 ---
