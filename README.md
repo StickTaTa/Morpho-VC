@@ -20,6 +20,17 @@
 - **ST-MIL training**: cell-to-spot mapping with NB (Negative Binomial) loss.
 - **Notebook-first workflow**: the main guide is `notebooks/st_mil_hest_multi.ipynb`.
 
+### User Guide
+- [User Guide (Chinese)](docs/User_Guide_CN.md)
+
+### Example Notebooks & Scripts
+- [notebooks/st_mil_hest_multi.ipynb](notebooks/st_mil_hest_multi.ipynb) (main training + prediction)
+- [notebooks/st_mil_hest_validate.ipynb](notebooks/st_mil_hest_validate.ipynb) (evaluation only)
+- [notebooks/st_mil_with_hest_raw.ipynb](notebooks/st_mil_with_hest_raw.ipynb) (single-slice sanity check)
+- [notebooks/st_mil_validation.ipynb](notebooks/st_mil_validation.ipynb) (legacy validation)
+- [scripts/convert_cellfm_ckpt.py](scripts/convert_cellfm_ckpt.py) (CellFM ckpt -> pt)
+- [configs/st_mil.yaml](configs/st_mil.yaml) (CLI config)
+
 ### Required Packages
 Core (minimum to run notebooks):
 ```bash
@@ -71,6 +82,17 @@ PYTHONPATH=src python src/st_pipeline/infer/predict_cli.py --config configs/st_m
 - **CellFM 基因端**：稳定的基因嵌入空间。
 - **ST-MIL 管线**：细胞→spot 映射 + 包级监督（NB 损失）。
 - **Notebook 作为主流程**：`notebooks/st_mil_hest_multi.ipynb`。
+
+### 使用指南
+- [中文使用指南](docs/User_Guide_CN.md)
+
+### 示例脚本与 Notebook
+- [notebooks/st_mil_hest_multi.ipynb](notebooks/st_mil_hest_multi.ipynb)（主流程训练+预测）
+- [notebooks/st_mil_hest_validate.ipynb](notebooks/st_mil_hest_validate.ipynb)（仅评估）
+- [notebooks/st_mil_with_hest_raw.ipynb](notebooks/st_mil_with_hest_raw.ipynb)（单切片检查）
+- [notebooks/st_mil_validation.ipynb](notebooks/st_mil_validation.ipynb)（旧版验证）
+- [scripts/convert_cellfm_ckpt.py](scripts/convert_cellfm_ckpt.py)（权重转换）
+- [configs/st_mil.yaml](configs/st_mil.yaml)（CLI 配置）
 
 ### 必备依赖
 核心依赖：
