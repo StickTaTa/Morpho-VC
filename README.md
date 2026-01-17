@@ -43,13 +43,9 @@ pip install geopandas pyogrio shapely
 
 ### External Components (not tracked in git)
 If you use external toolkits/models, place them under `third_party/` (examples below):
-- `CellFM`
-- `LazySlide`
-- `HEST`
-Reference links:
-- HEST: https://github.com/mahmoodlab/hest/
-- CellFM: https://github.com/biomed-AI/CellFM
-- LazySlide: https://github.com/rendeirolab/LazySlide
+- `CellFM`: https://github.com/biomed-AI/CellFM
+- `LazySlide`: https://github.com/rendeirolab/LazySlide
+- `HEST`: https://github.com/mahmoodlab/hest/
 
 ### Checkpoints + Vocab
 - Some external weights are MindSpore `.ckpt`.
