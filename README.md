@@ -26,8 +26,6 @@
 ### Example Notebooks & Scripts
 - [notebooks/st_mil_hest_multi.ipynb](notebooks/st_mil_hest_multi.ipynb) (main training + prediction)
 - [notebooks/st_mil_hest_validate.ipynb](notebooks/st_mil_hest_validate.ipynb) (evaluation only)
-- [notebooks/st_mil_with_hest_raw.ipynb](notebooks/st_mil_with_hest_raw.ipynb) (single-slice sanity check)
-- [notebooks/st_mil_validation.ipynb](notebooks/st_mil_validation.ipynb) (legacy validation)
 - [scripts/convert_cellfm_ckpt.py](scripts/convert_cellfm_ckpt.py) (CellFM ckpt -> pt)
 - [configs/st_mil.yaml](configs/st_mil.yaml) (CLI config)
 
@@ -89,8 +87,6 @@ PYTHONPATH=src python src/st_pipeline/infer/predict_cli.py --config configs/st_m
 ### 示例脚本与 Notebook
 - [notebooks/st_mil_hest_multi.ipynb](notebooks/st_mil_hest_multi.ipynb)（主流程训练+预测）
 - [notebooks/st_mil_hest_validate.ipynb](notebooks/st_mil_hest_validate.ipynb)（仅评估）
-- [notebooks/st_mil_with_hest_raw.ipynb](notebooks/st_mil_with_hest_raw.ipynb)（单切片检查）
-- [notebooks/st_mil_validation.ipynb](notebooks/st_mil_validation.ipynb)（旧版验证）
 - [scripts/convert_cellfm_ckpt.py](scripts/convert_cellfm_ckpt.py)（权重转换）
 - [configs/st_mil.yaml](configs/st_mil.yaml)（CLI 配置）
 
