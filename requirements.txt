@@ -1,0 +1,25 @@
+# Core
+torch
+torchvision
+numpy
+pandas
+scipy
+h5py
+scanpy
+anndata
+matplotlib
+
+# Vision / embeddings
+timm
+safetensors
+opencv-python
+openslide-python
+
+# Optional: HEST download
+datasets
+huggingface_hub
+
+# Optional: geometry stack for HEST contours
+geopandas
+pyogrio
+shapely
