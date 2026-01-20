@@ -29,6 +29,14 @@
 - [scripts/convert_cellfm_ckpt.py](scripts/convert_cellfm_ckpt.py) (CellFM ckpt -> pt)
 - [configs/st_mil.yaml](configs/st_mil.yaml) (CLI config)
 
+### Benchmark Notebooks (Comparison with Other Methods)
+We provide benchmark notebooks to evaluate and compare against existing spatial transcriptomics prediction methods:
+- [benchmark/01_HisToGene_benchmark.ipynb](benchmark/01_HisToGene_benchmark.ipynb) - HisToGene method
+- [benchmark/02_iStar_benchmark.ipynb](benchmark/02_iStar_benchmark.ipynb) - iStar method
+- [benchmark/03_mclSTExp_benchmark.ipynb](benchmark/03_mclSTExp_benchmark.ipynb) - mclSTExp method
+- [benchmark/04_sCellST_benchmark.ipynb](benchmark/04_sCellST_benchmark.ipynb) - sCellST method
+- [benchmark/05_THItoGene_benchmark.ipynb](benchmark/05_THItoGene_benchmark.ipynb) - THItoGene method
+
 ### Required Packages
 Core (minimum to run notebooks):
 ```bash
@@ -88,6 +96,14 @@ PYTHONPATH=src python src/st_pipeline/infer/predict_cli.py --config configs/st_m
 - [notebooks/st_mil_hest_validate.ipynb](notebooks/st_mil_hest_validate.ipynb)（仅评估）
 - [scripts/convert_cellfm_ckpt.py](scripts/convert_cellfm_ckpt.py)（权重转换）
 - [configs/st_mil.yaml](configs/st_mil.yaml)（CLI 配置）
+
+### Benchmark Notebooks（与其他方法的对比评估）
+我们提供了用于评估和对比现有空间转录组预测方法的 benchmark notebooks：
+- [benchmark/01_HisToGene_benchmark.ipynb](benchmark/01_HisToGene_benchmark.ipynb) - HisToGene 方法
+- [benchmark/02_iStar_benchmark.ipynb](benchmark/02_iStar_benchmark.ipynb) - iStar 方法
+- [benchmark/03_mclSTExp_benchmark.ipynb](benchmark/03_mclSTExp_benchmark.ipynb) - mclSTExp 方法
+- [benchmark/04_sCellST_benchmark.ipynb](benchmark/04_sCellST_benchmark.ipynb) - sCellST 方法
+- [benchmark/05_THItoGene_benchmark.ipynb](benchmark/05_THItoGene_benchmark.ipynb) - THItoGene 方法
 
 ### 必备依赖
 核心依赖：
