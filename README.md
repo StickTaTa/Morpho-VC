@@ -18,14 +18,14 @@
 - **Cell-to-spot ST-MIL pipeline** with explicit spot aggregation and NB (Negative Binomial) loss.
 - **Gene-aware training strategy** with chunked supervision to scale to large gene sets.
 - **Multi-slice training + evaluation workflow** (train/val/test split across slides).
-- **Notebook-first reproducibility** with a single main workflow (`notebooks/st_mil_hest_multi.ipynb`).
+- **Notebook-first reproducibility** with a single main workflow (`notebooks/01_st_mil_hest_multi.ipynb`).
 
 ### User Guide
 - [User Guide (Chinese)](docs/User_Guide_CN.md)
 
 ### Example Notebooks & Scripts
-- [notebooks/st_mil_hest_multi.ipynb](notebooks/st_mil_hest_multi.ipynb) (main training + prediction)
-- [notebooks/st_mil_hest_validate.ipynb](notebooks/st_mil_hest_validate.ipynb) (evaluation only)
+- [notebooks/01_st_mil_hest_multi.ipynb](notebooks/01_st_mil_hest_multi.ipynb) (main training + prediction for multi-slides)
+- [notebooks/02_st_mil_hest_single.ipynb](notebooks/02_st_mil_hest_single.ipynb) (main training + prediction for single slide)
 - [scripts/convert_cellfm_ckpt.py](scripts/convert_cellfm_ckpt.py) (CellFM ckpt -> pt)
 - [configs/st_mil.yaml](configs/st_mil.yaml) (CLI config)
 
