@@ -185,6 +185,68 @@ def calcADJ(coord, k=4, distanceType='euclidean', pruneTag='NA'):
     return Adj
 
 
+def _safe_corr(a, b):
+    a = a.astype(float)
+    b = b.astype(float)
+    a = a - a.mean()
+    b = b - b.mean()
+    denom = np.sqrt((a * a).sum()) * np.sqrt((b * b).sum())
+    if denom == 0:
+        return -1e9
+    return float((a * b).sum() / denom)
+
+
+def _align_array_to_spatial(array_col, array_row, spatial):
+    # Choose swap/flip that best aligns array indices with spatial x/y axes.
+    x = spatial[:, 0]
+    y = spatial[:, 1]
+    candidates = []
+    for swap in (False, True):
+        ax = array_row if swap else array_col
+        ay = array_col if swap else array_row
+        for flip_x in (1, -1):
+            for flip_y in (1, -1):
+                gx = ax * flip_x
+                gy = ay * flip_y
+                score = _safe_corr(gx, x) + _safe_corr(gy, y)
+                candidates.append((score, gx, gy))
+    best = max(candidates, key=lambda item: item[0])
+    return best[1], best[2]
+
+
+def _get_grid_coords(adata, n_pos):
+    # Prefer array coords and shift to zero-based grid for each slide.
+    if "array_col" in adata.obs and "array_row" in adata.obs:
+        array_col = adata.obs["array_col"].to_numpy().astype(int)
+        array_row = adata.obs["array_row"].to_numpy().astype(int)
+        if "spatial" in adata.obsm:
+            gx, gy = _align_array_to_spatial(array_col, array_row, adata.obsm["spatial"])
+            grid = np.stack([gx, gy], axis=1)
+        else:
+            grid = np.stack([array_col, array_row], axis=1)
+        grid = grid - grid.min(axis=0, keepdims=True)
+        max_pos = grid.max(axis=0)
+        if n_pos is not None and (max_pos[0] >= n_pos or max_pos[1] >= n_pos):
+            raise ValueError(
+                f"n_pos={n_pos} is too small for grid coords "
+                f"(max col={max_pos[0]}, max row={max_pos[1]})."
+            )
+        return grid
+
+    # Fallback to min-max normalized spatial coords when array coords are missing.
+    if n_pos is None:
+        raise ValueError("n_pos must be provided when array coords are unavailable.")
+    coords = adata.obsm["spatial"]
+    min_x, min_y = coords.min(axis=0)
+    max_x, max_y = coords.max(axis=0)
+    span_x = max_x - min_x + 1e-6
+    span_y = max_y - min_y + 1e-6
+    grid_x = np.floor((coords[:, 0] - min_x) / span_x * (n_pos - 1)).astype(int)
+    grid_y = np.floor((coords[:, 1] - min_y) / span_y * (n_pos - 1)).astype(int)
+    return np.stack([grid_x, grid_y], axis=1)
+
+
+
 class HESTTHItoGeneDataset(Dataset):
     def __init__(self, slide_ids, hest_dir, spatial_dir, genes, patch_size=112, n_pos=64, train=True):
         super().__init__()
@@ -221,15 +283,7 @@ class HESTTHItoGeneDataset(Dataset):
             self.wsi_paths[sid] = str(wsi_path)
             
             # Grid coords
-            coords = adata.obsm['spatial']
-            min_x, min_y = coords.min(axis=0)
-            max_x, max_y = coords.max(axis=0)
-            span_x = max_x - min_x + 1e-6
-            span_y = max_y - min_y + 1e-6
-            
-            grid_x = np.floor((coords[:, 0] - min_x) / span_x * (self.n_pos - 1)).astype(int)
-            grid_y = np.floor((coords[:, 1] - min_y) / span_y * (self.n_pos - 1)).astype(int)
-            adata.obsm['grid_coords'] = np.stack([grid_x, grid_y], axis=1) # (N, 2)
+            adata.obsm['grid_coords'] = _get_grid_coords(adata, self.n_pos)  # (N, 2)
             
             self.adatas[sid] = adata
 
@@ -291,7 +345,8 @@ class HESTTHItoGeneDataset(Dataset):
         exp = torch.Tensor(exp_np) # (N, n_genes)
 
         # 4. Adjacency
-        adj = calcADJ(adata.obsm['spatial'], k=4) # (N, N)
+        # Build adjacency on grid coords to match positional embedding space.
+        adj = calcADJ(adata.obsm["grid_coords"], k=4)
         adj = torch.Tensor(adj)
         
         if self.train:
